@@ -1,4 +1,5 @@
 import pgzrun
+from pgzhelper import *
 
 WIDTH = 700
 HEIGHT = 400
@@ -15,16 +16,25 @@ gravitation = 0.8
 hastighet = 0
 hastighet2 = 0
 höger = 0
+game_over = False
 
 def draw():
     bakgrund.draw()
     mark.draw()
-    spelare.draw()
     StorBlob.draw()
+    spelare.draw()
 
 def update():
-    update_spelare()
-    update_StorBlob()
+    global game_over
+    global spelare
+    global StorBlob
+    if not game_over:
+        update_StorBlob()
+        update_spelare()
+
+    if spelare.circle_collidepoint(87, StorBlob.x, StorBlob.y + 10):
+        game_over = True
+
 
 def update_spelare():
     global hastighet
